@@ -77,8 +77,8 @@ print(targets.ml_target.value_counts(normalize=True))
 G = sg.StellarGraph(node_features, edges.astype(str))
 print(G.info())
 
-train_pages, test_pages = train_test_split(targets, train_size=10)
-val_pages, test_pages = train_test_split(test_pages, train_size=10)
+train_pages, test_pages = train_test_split(targets, train_size=200)
+val_pages, test_pages = train_test_split(test_pages, train_size=200)
 print(train_pages.shape, val_pages.shape, test_pages.shape)
 
 target_encoding = LabelBinarizer()
@@ -168,7 +168,7 @@ es_callback = EarlyStopping(monitor="val_loss", patience=5, restore_best_weights
 history = model.fit(
     x = [features_input, train_indices, A_input],
     y = y_train,
-    batch_size = 8,
+    batch_size = 32,
     epochs=20,
     validation_data=([features_input, val_indices, A_input], y_val),
     verbose=1,
